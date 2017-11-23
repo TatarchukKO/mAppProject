@@ -1,26 +1,40 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const uri = require('./connection/mongoDbCredentials');
 const HARD_CODE_NEWS = require('./data/news');
+const blueBird = require('bluebird');
+
+const { MongoClient } = require('mongodb');
 
 const app = express();
 
-const uri = 'mongodb://kozya:kozya@ds117156.mlab.com:17156/m-app-project';
+const port = process.env.PORT || 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
   res.send('MAXIM LOH');
-})
-app.get('/news', (req, res) => {
-  const skip = req.query.skip || 0;
-  const top = req.query.top || 1000;
+});
 
-  const requestedNews = HARD_CODE_NEWS.slice(skip, top);
+app.get('/news', async (req, res) => {
+  
+  let db = await MongoClient.connect(uri);
 
-  res.send(requestedNews);
+  try {
+    const skip = req.query.skip || 0;
+    const top = req.query.top || 1000;
+
+    let collection = db.collection('Article');
+    let articles = await collection.find().toArray();
+
+    res.send(articles);
+  } catch (e) {
+    console.log(e.stack);
+  } finally {
+    db.close();
+  }
+
 });
 
 app.get('/article', (req, res) => {
@@ -34,7 +48,7 @@ app.get('/article', (req, res) => {
 });
 
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log('Our app is running on http://localhost:' + port);
 });
 
