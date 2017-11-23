@@ -3,15 +3,17 @@ const bodyParser = require('body-parser');
 
 const HARD_CODE_NEWS = require('./data/news');
 
-
 const app = express();
 
-
-const mongo = require('mongodb');
 const uri = 'mongodb://kozya:kozya@ds117156.mlab.com:17156/m-app-project';
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+
+app.get('/', (req, res) => {
+  res.send('MAXIM LOH');
+})
 app.get('/news', (req, res) => {
   const skip = req.query.skip || 0;
   const top = req.query.top || 1000;
