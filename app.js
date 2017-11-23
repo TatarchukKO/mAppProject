@@ -13,21 +13,22 @@ const app = express();
 const mongo = require('mongodb');
 const uri = 'mongodb://kozya:kozya@ds117156.mlab.com:17156/m-app-project';
 
-mongo.MongoClient.connect(uri, function (err, db) {
-  if (err) {
-    throw err;
-  }
+mongo.MongoClient.connect(uri, function(err, db) {
+  const news = db.collection('Article');
 
-  const Article = db.collection('Article');
+  const cursor = news.find();
 
-  Article.insertMany(HARD_CODE_NEWS, function (err, result) {
-    if (err) {
-      throw err;
-    }
+  
+  // cursor.each(function(err, item) {
+  //   if (item === null) {
+  //     db.close();
+  //     return;
+  //   }
+  //   console.log(item);
+  // });
+  
+});
 
-    console.log(result);
-  });
-})
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
