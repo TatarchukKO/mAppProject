@@ -9,7 +9,7 @@ const uri = 'mongodb://kozya:kozya@ds117156.mlab.com:17156/m-app-project';
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
+let port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
   res.send('MAXIM LOH');
@@ -34,7 +34,9 @@ app.get('/article', (req, res) => {
 });
 
 
-app.listen(app.port());
+app.listen(port, function() {
+  console.log('Our app is running on http://localhost:' + port);
+});
 
 
 
