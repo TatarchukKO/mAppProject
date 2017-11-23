@@ -1,8 +1,5 @@
 const express = require('express');
-const cheerio = require('cheerio');
-const request = require('request');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 
 const HARD_CODE_NEWS = require('./data/news');
 
@@ -12,9 +9,6 @@ const app = express();
 
 const mongo = require('mongodb');
 const uri = 'mongodb://kozya:kozya@ds117156.mlab.com:17156/m-app-project';
-
-mongo.MongoClient.connect(uri, cb);
-
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -31,7 +25,6 @@ app.get('/article', (req, res) => {
   const id = req.query.id;
 
   const article = HARD_CODE_NEWS.find((item) => {
-    console.log('dasda', typeof item.id);
     return item.id === id
   });
 
@@ -39,7 +32,7 @@ app.get('/article', (req, res) => {
 });
 
 
-app.listen(1337);
+app.listen();
 
 
 
