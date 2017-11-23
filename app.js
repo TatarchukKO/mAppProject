@@ -32,7 +32,7 @@ app.get('/article', (req, res) => {
 });
 
 
-app.listen();
+app.listen(app.port());
 
 
 
