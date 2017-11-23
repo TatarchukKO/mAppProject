@@ -25,8 +25,6 @@ app.get('/news', async (req, res) => {
     const skip = Number(req.query.skip) || 0;
     const top = Number(req.query.top) || 1000;
 
-    console.log(top);
-
     let collection = db.collection('Article');
     let articles = await collection.find().skip(skip).limit(top).toArray();
 
