@@ -18,15 +18,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/news', async (req, res) => {
-  
+
   let db = await MongoClient.connect(uri);
 
   try {
-    const skip = req.query.skip || 0;
-    const top = req.query.top || 1000;
+    const skip = Number(req.query.skip) || 0;
+    const top = Number(req.query.top) || 1000;
+
+    console.log(top);
 
     let collection = db.collection('Article');
-    let articles = await collection.find().toArray();
+    let articles = await collection.find().skip(skip).limit(top).toArray();
 
     res.send(articles);
   } catch (e) {
