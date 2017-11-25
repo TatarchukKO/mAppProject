@@ -3,7 +3,7 @@ mongoose = require('mongoose');
 class DbConnection {
 
   constructor() {
-    this.url = 'mongodb://kozya:kozya@ds117156.mlab.com:17156/m-app-project';
+    this.url = '';
     mongoose.Promise = global.Promise;
   }
 
