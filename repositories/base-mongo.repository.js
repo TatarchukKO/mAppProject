@@ -21,6 +21,7 @@ class BaseRepository {
 	};
 
 	async find(conditions, projection, options) {
+		
 		let document = await this.model.find(conditions, projection, options);
 		
 		if (!document) {
