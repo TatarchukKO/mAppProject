@@ -11,12 +11,12 @@ class ArticleController {
       conditions = req.body.conditions || {},
       options = {
         skip: Number(req.query.skip) || 0,
-        top: Number(req.query.top) || 10,
+        limit: Number(req.query.top) || 10,
         sort: req.body.sort || null
       };
 
     try {
-      let articles = await articleRep.find(conditions, projection, options);
+      let articles = await articleRep.findArticles(conditions, projection, options);
 
       if (articles && articles.length === 0) {
         return res.status(404).end();
@@ -25,7 +25,7 @@ class ArticleController {
       res.send(articles);
     } catch (e) {
       console.log(e.message);
-      res.send(e.message);
+      res.status(422).send(e.message);
     }
   }
 

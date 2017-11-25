@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const ArticleController = require('../controllers/article.controller');
+const routes = require('../routes/article.routes');
 
+const ArticleController = require('../controllers/article.controller');
 const articleController = new ArticleController();
 
 class ApiModule {
@@ -29,8 +30,7 @@ class ApiModule {
     this.app.get('/', async (req, res) => {
       res.send('WOA');
     });
-    this.app.put('/articles', articleController.getArticles);
-    this.app.get('/articles/detailed-view', articleController.getArticleById);
+    this.app.use(routes);
   }
 
 }
