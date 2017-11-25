@@ -3,7 +3,6 @@ mongoose = require('mongoose');
 class DbConnection {
 
   constructor() {
-    console.log(process.env);
     this.url = process.env.DB_URI;
     mongoose.Promise = global.Promise;
   }
