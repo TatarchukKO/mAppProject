@@ -9,7 +9,7 @@ class ApiModule {
 
   constructor(dbConnection, port) {
     this.db = new dbConnection().connect();
-    this.port = port || 8080;
+    this.port = process.env.PORT || 8080;
   }
 
   initModule() {
