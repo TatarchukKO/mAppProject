@@ -29,7 +29,7 @@ class ApiModule {
     this.app.get('/', async (req, res) => {
       res.send('WOA');
     });
-    this.app.post('/articles', articleController.getArticles);
+    this.app.put('/articles', articleController.getArticles);
   }
 
 }
