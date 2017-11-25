@@ -29,7 +29,15 @@ let getArticles = {
       tags: Joi.array().items(Joi.string().required()),
       date: Joi.string().isoDate().trim(),
     }),
-  }
+    sort: Joi.object().keys({
+      title: Joi.string().trim().label('asc' || 'desc'),
+      description: Joi.string().trim().label('asc' || 'desc'),
+      content: Joi.string().trim().label('asc' || 'desc'),
+      img: Joi.string().trim().label('asc' || 'desc'),
+      date: Joi.string().trim().label('asc' || 'desc'),
+    }),
+    // sort: Joi.array().items(Joi.string().trim().required(), Joi.string().trim().label('asc' || 'desc').required()),
+  },
 }
 
 module.exports = {

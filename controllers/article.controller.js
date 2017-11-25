@@ -25,7 +25,7 @@ class ArticleController {
       res.send(articles);
     } catch (e) {
       console.log(e.message);
-      res.send(e.message);
+      res.status(422).send(e.message);
     }
   }
 
