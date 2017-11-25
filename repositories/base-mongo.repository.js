@@ -4,16 +4,16 @@ class BaseRepository {
 		this.model = null;
 	}
 
-	async findById(id, projection, options) {
+	async findById(id, projection) {
 
 		if (typeof id === 'undefined') {
 			id = null;
 		}
 
-		let document = await this.model.findById({ _id: id }, projection, options, callback);
+		let document = await this.model.findById({ _id: id }, projection);
 
-		if (!document) {
-			throw new Error('500');
+		if (document === null) {
+			throw new Error('404');
 		}
 
 		return document;
@@ -22,9 +22,9 @@ class BaseRepository {
 
 	async find(conditions, projection, options) {
 		let document = await this.model.find(conditions, projection, options);
-
+		
 		if (!document) {
-			throw new Error('404');
+			throw new Error('500');
 		}
 
 		return document;

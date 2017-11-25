@@ -29,6 +29,32 @@ class ArticleController {
     }
   }
 
+  async getArticleById(req, res) {
+
+    let id = req.query.id,
+      projection = req.query.projection || null;
+
+    try {
+
+      // move it the validation in the future
+      if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(422).end();
+      }
+
+      let article = await articleRep.findById(id, projection);
+
+      if (!article) {
+        return res.status(404).end();
+      }
+
+      res.send(article);
+    } catch(e) {
+      console.log(e.message);
+      return res.status(e.message).end();
+    }
+
+  }
+
 }
 
 module.exports = ArticleController;

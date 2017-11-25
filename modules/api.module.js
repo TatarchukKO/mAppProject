@@ -30,6 +30,7 @@ class ApiModule {
       res.send('WOA');
     });
     this.app.put('/articles', articleController.getArticles);
+    this.app.get('/articles/detailed-view', articleController.getArticleById);
   }
 
 }
