@@ -11,7 +11,7 @@ class ArticleController {
       conditions = req.body.conditions || {},
       options = {
         skip: Number(req.query.skip) || 0,
-        top: Number(req.query.top) || 5,
+        top: Number(req.query.top) || 10,
         sort: req.body.sort || null
       };
 
