@@ -5,7 +5,7 @@ const ArticleController = require('../controllers/article.controller');
 
 const articleController = new ArticleController();
 
-router.get('/articles/detailed-view', articleController.getArticleById);
+router.get('/article', articleController.getArticleById);
 router.put('/articles', validate(getArticles), articleController.getArticles);
 
 module.exports = router;
