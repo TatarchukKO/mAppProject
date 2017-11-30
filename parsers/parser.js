@@ -1,17 +1,11 @@
-
-
-
 class Parser {
 
   constructor() {
-    this.cheerio = require('cheerio');
-    this.request = require('request');
-
-    this.article = null;
+    this.model = null;
   }
 
   get() {
-    return article; 
+    return this.model; 
   }
 
 }

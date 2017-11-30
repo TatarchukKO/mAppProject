@@ -1,19 +1,36 @@
-const Parser = require('./parser');
-const Article = require('../models/article.model');
+const { get } = require('request');
+const { load } = require('cheerio');
 
-class onlinerbyParser extends Parser {
+const Parser = require('./parser');
+const articleModel = require('../models/article.model');
+
+class OnlinerParser extends Parser {
 
   constructor() {
     super();
 
     this.sources = require('./sources/onliner-by.source');
-    this.article = new Article();
+    this.article = articleModel;
   }
 
   getLinks() {
     console.log(this.sources.people);
-    this.request.get('https://people.onliner.by/?fromDate=1510153113', (err, res, data) => {
-      console.log(data);
+    get('https://people.onliner.by/?fromDate=1510153113', (err, res, data) => {
+      if (err) {
+        throw err;
+      }
+
+      let $ = load(data);
+      let result = [];
+      // tiles and tidings
+      $('.news-tidings__stub').each(function(key, value) {
+        let link = $(this).attr('href');
+
+        console.log(link);
+
+        result.push(link);
+      });
+
     });
     //   this.request.get(this.sources.people, (err, res, data) => {
     //     try {
@@ -43,7 +60,9 @@ class onlinerbyParser extends Parser {
     //   });
   }
 
-
-
 }
+
+const op = new OnlinerParser();
+
+op.getLinks();
 
